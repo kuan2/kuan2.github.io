@@ -1,9 +1,8 @@
 let b = document.body;
 let c = document.createElement('canvas');
-c.className = 'canvas';
+c.className = 'canvas flower';
 b.appendChild(c);
 let a = c.getContext('2d');
-document.body.clientWidth;
 with (m = Math) C = cos, S = sin, P = pow, R = random;
 c.width = c.height = f = 600;
 h = -250;
