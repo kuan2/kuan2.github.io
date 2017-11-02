@@ -4,20 +4,42 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" href="css/animate.min.css">
+  <link rel="stylesheet" href="css/reset.css">
   <style>
+    body {
+      overflow: hidden;
+    }
     h1 {
       width: 70%;
-      height: 200px;
-      line-height: 200px;
-      font-size: 50px;
+      height: 100px;
+      line-height: 100px;
       text-align: center;
       border: 1px solid #ccc;
-      box-shadow: 10px 10px 10px 5px #ccc;
+      box-shadow: 1px 1px 5px 2px #ccc;
       border-radius: 20px;
       margin: 50px auto;
     }
+    a {
+      display: block;
+      min-width: 100px;
+      text-align: center;
+      line-height: 100px;
+      height: 100px;
+      border: 1px solid #c6f;
+      box-shadow: 0 0 6px #C6F;
+      border-radius: 50%;
+      position: absolute;
+      left: 200px;
+      top: 200px;
+      text-decoration: none;
+      color: #333333;
+      font-size: 18px;
+      background: rgba(50, 0, 50, 0.1);
+    }
     .flower {
-      float: right;
+      position: absolute;
+      bottom: 0;
+      left: 0;
       -webkit-transform: scale(0.5);
       -moz-transform: scale(0.5);
       -ms-transform: scale(0.5);
@@ -27,8 +49,61 @@
   </style>
 </head>
 <body>
-  <h1 class="animated zoomInDown">卢忠宽</h1>
+  <h1 class="animated zoomInDown">好玩的小案例</h1>
 </body>
 <script src="funny/line/line.js"></script>
 <script src="funny/flower/flower.js"></script>
+<script src="pages.js"></script>
+<script>
+  window.onload = () => {
+    pages.map(item => {
+      let bubble = new Bubble();
+      bubble.init(item);
+    })
+  };
+
+
+  let width = document.documentElement.clientWidth;
+  let height = document.documentElement.clientHeight;
+
+  function Bubble() {
+    this.position = {
+      x: Math.random() * (width - 210),
+      y: Math.random() * (height - 210)
+    };
+    this.speed = {
+      x: getSpeed(),
+      y: getSpeed()
+    };
+  }
+
+  Bubble.prototype.init = function (page) {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+    let a = document.createElement('a');
+    a.innerHTML = page.name;
+    a.href = 'funny/' + page.href;
+    document.body.appendChild(a);
+    this.timer = setInterval(() => {
+      this.position.x += this.speed.x;
+      this.position.y += this.speed.y;
+      let left = this.position.x;
+      let top = this.position.y;
+      if (left < 0 || left > width - 100) {
+        this.speed.x = -this.speed.x;
+      }
+      if (top < 0 || top > height - 100) {
+        this.speed.y = -this.speed.y;
+      }
+      a.style.left = left + 'px';
+      a.style.top = top + 'px';
+    }, 100 / 60);
+  };
+
+  function getSpeed() {
+    let speed = 2 - Math.random() * 4;
+    return speed > -0.5 && speed < 0.5 ? speed : 1;
+  }
+</script>
 </html>
