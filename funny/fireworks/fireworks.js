@@ -173,6 +173,7 @@ function loop() {
     if (mousedown) {
       fireworks.push(new Firework(cw / 2, ch, mx, my));
       limiterTick = 0;
+      mousedown = false;
     }
   } else {
     limiterTick++;
@@ -183,9 +184,5 @@ document.addEventListener('mousedown', function (e) {
   mx = e.pageX - canvas.offsetLeft;
   my = e.pageY - canvas.offsetTop;
   mousedown = true;
-});
-
-document.addEventListener('mouseup', function () {
-  mousedown = false;
 });
 window.onload = loop;
