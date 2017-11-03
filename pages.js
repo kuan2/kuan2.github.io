@@ -7,5 +7,6 @@ let pages = [
   {name: '表白', href: 'sayLove'},
   {name: '智能机器人', href: 'tuling'},
   {name: '白云', href: 'cloud'},
-  {name: '翻页', href: 'flipBook'}
+  {name: '翻页', href: 'flipBook'},
+  {name: '下雨天', href: 'rainyday'}
 ];
