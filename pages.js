@@ -8,5 +8,14 @@ let pages = [
   {name: '智能机器人', href: 'tuling'},
   {name: '白云', href: 'cloud'},
   {name: '翻页', href: 'flipBook'},
-  {name: '下雨天', href: 'rainyday'}
+  {name: '下雨天', href: 'rainyday'},
+  {name: '蓝色的雨', href: 'blueRain'},
+  {name: '翻页的时钟', href: 'clock'},
+  {name: '挂钟', href: 'clock2'},
+  {name: '3D旋转的字母', href: '3Dcode'},
+  {name: '旋转的地球', href: 'earth'},
+  {name: '超级玛丽', href: 'mario'},
+  {name: '刮刮乐', href: 'scratch'},
+  {name: '下雨天', href: 'snow'},
+  {name: '例子烟花', href: 'fireworks2'}
 ];

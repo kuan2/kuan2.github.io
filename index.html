@@ -3,21 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <link rel="stylesheet" href="css/animate.min.css">
   <link rel="stylesheet" href="css/reset.css">
   <style>
     body {
       overflow: hidden;
-    }
-    h1 {
-      width: 70%;
-      height: 100px;
-      line-height: 100px;
-      text-align: center;
-      border: 1px solid #ccc;
-      box-shadow: 1px 1px 5px 2px #ccc;
-      border-radius: 20px;
-      margin: 50px auto;
     }
     a {
       display: block;
@@ -49,10 +38,8 @@
   </style>
 </head>
 <body>
-  <h1 class="animated zoomInDown">好玩的小案例</h1>
 </body>
 <script src="funny/line/line.js"></script>
-<script src="funny/flower/flower.js"></script>
 <script src="pages.js"></script>
 <script>
   window.onload = () => {
@@ -84,6 +71,7 @@
     let a = document.createElement('a');
     a.innerHTML = page.name;
     a.href = 'funny/' + page.href;
+    a.target = '_blank';
     document.body.appendChild(a);
     this.timer = setInterval(() => {
       this.position.x += this.speed.x;
