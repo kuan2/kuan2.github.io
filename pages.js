@@ -17,5 +17,6 @@ let pages = [
   {name: '超级玛丽', href: 'mario'},
   {name: '刮刮乐', href: 'scratch'},
   {name: '下雨天', href: 'snow'},
-  {name: '例子烟花', href: 'fireworks2'}
+  {name: '例子烟花', href: 'fireworks2'},
+  {name: '打开qq聊天', href: 'qq'}
 ];
