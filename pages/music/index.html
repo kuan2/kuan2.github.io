@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    div {
+      text-align: center;
+      margin: 100px auto;
+      width: 50%;
+    }
+    button {
+      border-radius: 10px;
+      background: #ffa726;
+      height: 50px;
+      padding: 0 20px;
+      border: none;
+      font-size: 20px;
+      color: white;
+    }
+    p {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <audio src='' controls>浏览器不支持</audio>
+  <h2></h2>
+  <Button onClick='getRandomMusic()'>随机选歌</Button>
+</div>
+</body>
+<script type="text/javascript">
+  let data = [{
+    'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'Jay Hardway - Electric Elephants (Extended Mix)'
+  },
+    {'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': '萌萌哒天团- 王者荣耀'},
+    {'http://www.fm.vhuomai.cn/dbaa203b8a5c4817abb42ee6e78168b3.mp3': '--------0--------'},
+    {
+      'http://www.fm.vhuomai.cn/d07d51dcc87a4ec5b67e07077c2ecdc1.mp3': '购票拨打热线909-436-5747'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Martin Jensen - Solo Dance'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 走马'
+    },
+    {'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Disclosure - F For You (ft. Mary J Blige)'},
+    {'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': 'OneRepublic,SeeB - Rich Love'},
+    {
+      'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': 'Lyric Everly - Sugar Lips'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b306870f8a21447687a1f751736fa5dc.mp3': '筷子兄弟- 父亲'
+    },
+    {
+      'http://www.fm.vhuomai.cn/1cd0ed2322154ccaaca9b13a2512cb0f.mp3': '牛奶咖啡- 一个人的风景'
+    },
+    {'http://www.fm.vhuomai.cn/4b8186e5286047788f8e603b1fb7b906.mp3': 'Keane - Sunshine'},
+    {'http://www.fm.vhuomai.cn/dbaa203b8a5c4817abb42ee6e78168b3.mp3': '--------1--------'},
+    {
+      'http://www.fm.vhuomai.cn/de0bd9d7b0ea452d90c2d9446e11ec6c.mp3': '杨宗纬-  那个男人'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d9130a4f187947359a6dfb47e3b0de65.mp3': 'Niall Horan - This Town'
+    },
+    {
+      'http://www.fm.vhuomai.cn/39edf7e6d97a48c484397ce8b7d5e26d.mp3': '夏小虎- 逝年'
+    },
+    {'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 易燃易爆炸'},
+    {'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': 'LeaderS - 바래'},
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------9--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d0d1d176b76646d0a297877a89ba1e8e.mp3': 'Coeur De Pirate - Carry On (Felix Cartal Remix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': '胡夏- 爱夏'
+    },
+    {'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'Hardwell,MAKJ - Countdown (Original Mix)'},
+    {'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': 'Kelly Clarkson - Catch My Breath (Cash Cash Remix Master)'},
+    {
+      'http://www.fm.vhuomai.cn/de0bd9d7b0ea452d90c2d9446e11ec6c.mp3': '方大同- 三人游'
+    },
+    {
+      'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Beautiful Heartbeat (feat. Frida Sundemo) [Avicii Remix]'
+    },
+    {
+      'http://www.fm.vhuomai.cn/eed028e13ef74061972763e3aa12753e.mp3': 'MAGIC OF LiFE - 泣いてもいいかな.1'
+    },
+    {'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': '朱主爱- 好想你'},
+    {'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Zhu - Generationwhy'},
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Spada,Anna Leyne,EDX - Catch Fire (EDXs Miami Sunset Remix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/548706842bbe4e72858a76b1c09129cf.mp3': 'Slice N Dice,Kygo - Firestone (Slice N Dice Remix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/359dabf57ed04f1ca42587e76e262e6e.mp3': '薛之谦- 安和桥'
+    },
+    {'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': '张碧晨- 下一秒'},
+    {'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 光'},
+    {
+      'http://www.fm.vhuomai.cn/39edf7e6d97a48c484397ce8b7d5e26d.mp3': '阿肆- 我在人民广场吃炸鸡'
+    },
+    {
+      'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': '周柏豪- 宏愿'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b4a7e2b2a52f4d0cb038d662aaa59ab0.mp3': '梁咏琪- 胆小鬼'
+    },
+    {'http://www.fm.vhuomai.cn/d0d1d176b76646d0a297877a89ba1e8e.mp3': 'Lay It All on Me (feat. Ed Sheeran) [Sultan + Shepard Remix]'},
+    {'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': '鹏泊- 啷个哩个啷'},
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': ' Rock U - Vinne'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------4--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/cfc1b3ba82ee4a5cb3397089edbc4989.mp3': '郭采洁- I Remember'
+    },
+    {'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------3--------'},
+    {'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 妙龄童'},
+    {
+      'http://www.fm.vhuomai.cn/42f88daee2d9419cb2c2531e7f0115c3.mp3': '陈鸿宇- 理想三旬'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b645beb39dee451fa83c5bb3528a473d.mp3': '金莎- 我们结婚吧'
+    },
+    {
+      'http://www.fm.vhuomai.cn/cfc1b3ba82ee4a5cb3397089edbc4989.mp3': '蔡健雅- 停格'
+    },
+    {'http://www.fm.vhuomai.cn/f316efc4c38c491bba7b38b097dc8104.mp3': 'Adele - Set Fire to the Rain'},
+    {'http://www.fm.vhuomai.cn/b4a7e2b2a52f4d0cb038d662aaa59ab0.mp3': '许佳慧- 我在神经什么'},
+    {
+      'http://www.fm.vhuomai.cn/eed028e13ef74061972763e3aa12753e.mp3': 'Bruno Mars - Count On Me'
+    },
+    {
+      'http://www.fm.vhuomai.cn/548706842bbe4e72858a76b1c09129cf.mp3': 'Vicetone - Heartbeat (feat. Collin McLoughlin)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/81c9d56329ce413588443e7e85c14138.mp3': '五月天- 倔强'
+    },
+    {'http://www.fm.vhuomai.cn/303c627b2b9f4bca960ca47b0ef05d7c.mp3': '黄玠,魏如萱- 25岁'},
+    {'http://www.fm.vhuomai.cn/39edf7e6d97a48c484397ce8b7d5e26d.mp3': '苏运莹- 萤火虫 (Live)'},
+    {
+      'http://www.fm.vhuomai.cn/73620bbf38454d5f8e66a04bf5271c4d.mp3': '徐良- 他的猫'
+    },
+    {
+      'http://www.fm.vhuomai.cn/a5b67f836943485b97d14fa5c8f85d7d.mp3': '赵雷- 成都'
+    },
+    {
+      'http://www.fm.vhuomai.cn/333dbfbf98684118854778fb044299d7.mp3': 'The Chainsmokers, Halsey - Closer'
+    },
+    {'http://www.fm.vhuomai.cn/5c6a7415b0654446b1339f34c6f6d4f0.mp3': '爆音BOOM - Freestyle'},
+    {'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Aaron Carter - Sooner Or Later'},
+    {
+      'http://www.fm.vhuomai.cn/7fb033a19e7643f5b69d04d65342a244.mp3': '伊藤由奈 - Trust you'
+    },
+    {
+      'http://www.fm.vhuomai.cn/7fb033a19e7643f5b69d04d65342a244.mp3': '松原みき(まつばらみき) - Back To Paradise'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'EDX - Dharma'
+    },
+    {'http://www.fm.vhuomai.cn/b4a7e2b2a52f4d0cb038d662aaa59ab0.mp3': '陈奕迅- 最佳损友'},
+    {'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': ' Maroon 5,Kendrick Lamar,Ryan Riback - Dont Wanna Know (Ryan Riback Remix)'},
+    {
+      'http://www.fm.vhuomai.cn/b4a7e2b2a52f4d0cb038d662aaa59ab0.mp3': '皓月、葛平、洛天依- 单身狗'
+    },
+    {
+      'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': ' Rain Man,Not Your Dope,Oly - Bring Back The Summer (Not Your Dope Remix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/18a57e71fe7b422db745f858f2c232fc.mp3': '欢迎加入 歪果Wiggle FM'
+    },
+    {'http://www.fm.vhuomai.cn/1cd0ed2322154ccaaca9b13a2512cb0f.mp3': '程璧- 火车'},
+    {'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'Tamas Wells - Valder Fields'},
+    {
+      'http://www.fm.vhuomai.cn/b306870f8a21447687a1f751736fa5dc.mp3': '赵照- 当你老了'
+    },
+    {
+      'http://www.fm.vhuomai.cn/de0bd9d7b0ea452d90c2d9446e11ec6c.mp3': 'Kita Alexander - Like you Want To'
+    },
+    {
+      'http://www.fm.vhuomai.cn/42f88daee2d9419cb2c2531e7f0115c3.mp3': '贰佰- 嘿，抬头！'
+    },
+    {'http://www.fm.vhuomai.cn/4b8186e5286047788f8e603b1fb7b906.mp3': 'Miwa - Don’t cry anymore'},
+    {'http://www.fm.vhuomai.cn/9afe010055f9440ea5d38a5eaf057ce0.mp3': '河图- 倾尽天下'},
+    {
+      'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': '王若琳- The Best Mistake I’ve Ever Made'
+    },
+    {
+      'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': '周杰伦- 英雄'
+    },
+    {
+      'http://www.fm.vhuomai.cn/4b8186e5286047788f8e603b1fb7b906.mp3': '伊藤由奈 - Trust you'
+    },
+    {'http://www.fm.vhuomai.cn/359dabf57ed04f1ca42587e76e262e6e.mp3': '薛之谦- 下雨了'},
+    {'http://www.fm.vhuomai.cn/1707407d0279423c92c53bbc5dfdfda3.mp3': 'SRNO，Lexy Panterra - Bloodshot'},
+    {
+      'http://www.fm.vhuomai.cn/f316efc4c38c491bba7b38b097dc8104.mp3': 'ONE OK ROCK - Wherever you are'
+    },
+    {
+      'http://www.fm.vhuomai.cn/303c627b2b9f4bca960ca47b0ef05d7c.mp3': '林宥嘉- 全世界谁倾听你'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------24-26--------'
+    },
+    {'http://www.fm.vhuomai.cn/4b8186e5286047788f8e603b1fb7b906.mp3': 'Aimer - Last Stardust'},
+    {'http://www.fm.vhuomai.cn/de0bd9d7b0ea452d90c2d9446e11ec6c.mp3': '蔡健雅- Letting Go'},
+    {
+      'http://www.fm.vhuomai.cn/8de3ef39a9e44e15bcfb7996839e2e7d.mp3': '爽子- 自由的飞'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '凛として時雨- Die Meets Hard'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d9130a4f187947359a6dfb47e3b0de65.mp3': '龙井说唱- 归'
+    },
+    {'http://www.fm.vhuomai.cn/73620bbf38454d5f8e66a04bf5271c4d.mp3': 'Jeffree Star - Lollipop Luxury'},
+    {'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Coldplay- Paradise (Jóhannes Ágúst Dubstep Remix)'},
+    {
+      'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': '周杰伦- 印地安老斑鸠'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': 'Hampton the Hampster - The Hampster Dance Song.9'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d0d1d176b76646d0a297877a89ba1e8e.mp3': 'The Chainsmokers,Coldplay - Something Just Like This (Don DiabloRemix)'
+    },
+    {'http://www.fm.vhuomai.cn/a5b67f836943485b97d14fa5c8f85d7d.mp3': '马頔- 南山南'},
+    {'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': '周杰伦- 甜甜的'},
+    {
+      'http://www.fm.vhuomai.cn/1707407d0279423c92c53bbc5dfdfda3.mp3': 'Frande - 好好睡的歌'
+    },
+    {
+      'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': 'John De Sohn,Kristin Amparo - Dance Our Tears Away'
+    },
+    {
+      'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': '张杰- 逆战'
+    },
+    {'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': '王极- 要不要做我女朋友'},
+    {'http://www.fm.vhuomai.cn/b306870f8a21447687a1f751736fa5dc.mp3': '许飞- 父亲写的散文诗'},
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------6--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/4b8186e5286047788f8e603b1fb7b906.mp3': '松原みき(まつばらみき) - Back To Paradise'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': 'Imagine Dragons - Thunder'
+    },
+    {'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': ' MAKJ,Ed Sheeran - Shape Of You (MAKJ Remix)'},
+    {'http://www.fm.vhuomai.cn/b4a7e2b2a52f4d0cb038d662aaa59ab0.mp3': '郭旭- 狗先生'},
+    {
+      'http://www.fm.vhuomai.cn/1cd0ed2322154ccaaca9b13a2512cb0f.mp3': '陈绮贞- 旅行的意义'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b645beb39dee451fa83c5bb3528a473d.mp3': '彭佳慧- 走在红毯那一天'
+    },
+    {
+      'http://www.fm.vhuomai.cn/303c627b2b9f4bca960ca47b0ef05d7c.mp3': '蔡依林- 我'
+    },
+    {'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': 'Spice Girls - Wannabe'},
+    {'http://www.fm.vhuomai.cn/3995eb254d164d7998d5498fbc9eb8cf.mp3': '关山蓝果-  Aesthetic'},
+    {
+      'http://www.fm.vhuomai.cn/81c9d56329ce413588443e7e85c14138.mp3': '赵雷- 少年锦时'
+    },
+    {
+      'http://www.fm.vhuomai.cn/f316efc4c38c491bba7b38b097dc8104.mp3': '明明就- 周杰伦'
+    },
+    {
+      'http://www.fm.vhuomai.cn/7fb033a19e7643f5b69d04d65342a244.mp3': 'Keane - Sunshine'
+    },
+    {'http://www.fm.vhuomai.cn/d07d51dcc87a4ec5b67e07077c2ecdc1.mp3': '909-436-5747'},
+    {'http://www.fm.vhuomai.cn/7fb033a19e7643f5b69d04d65342a244.mp3': 'Miwa - Don’t cry anymore'},
+    {
+      'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'KSHMR - Leviathan (Original Mix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/42f88daee2d9419cb2c2531e7f0115c3.mp3': '李荣浩- 自拍'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': 'One Direction - What Makes You Beautiful'
+    },
+    {'http://www.fm.vhuomai.cn/303c627b2b9f4bca960ca47b0ef05d7c.mp3': 'Bill Withers - Lean On Me'},
+    {'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': 'Augustana - Alive'},
+    {
+      'http://www.fm.vhuomai.cn/333dbfbf98684118854778fb044299d7.mp3': '王铮亮- 越走越远'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------end30--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/5c6a7415b0654446b1339f34c6f6d4f0.mp3': '宋岳庭- Life’s A Struggle'
+    },
+    {'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': ' Midnight City - M83'},
+    {'http://www.fm.vhuomai.cn/a5b67f836943485b97d14fa5c8f85d7d.mp3': '你不在南京- 南游记乐队'},
+    {
+      'http://www.fm.vhuomai.cn/1cd0ed2322154ccaaca9b13a2512cb0f.mp3': '袁娅维- 旅行中忘记'
+    },
+    {
+      'http://www.fm.vhuomai.cn/1707407d0279423c92c53bbc5dfdfda3.mp3': '小人- 今天你可以输'
+    },
+    {
+      'http://www.fm.vhuomai.cn/6356cb9611934b6286a4bde6767dd888.mp3': 'Bila - Candy'
+    },
+    {'http://www.fm.vhuomai.cn/5c6a7415b0654446b1339f34c6f6d4f0.mp3': 'Daft Punk - Something About Us (Cherokee Remix)]'},
+    {'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': 'Martin Garrix,Troye Sivan - There For You'},
+    {
+      'http://www.fm.vhuomai.cn/28dcce7bf51e47bba45448cd44d7c20a.mp3': ' Going Deeper,LZRZ - Closer'
+    },
+    {
+      'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': 'G.E.M.邓紫棋- 我的秘密'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 小半'
+    },
+    {'http://www.fm.vhuomai.cn/28dcce7bf51e47bba45448cd44d7c20a.mp3': 'Infected mushroom- Deeply disturbed'},
+    {'http://www.fm.vhuomai.cn/73620bbf38454d5f8e66a04bf5271c4d.mp3': 'Bon Jovi - Because We Can'},
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': 'Rihanna,Calvin Harris - We Found Love'
+    },
+    {
+      'http://www.fm.vhuomai.cn/f316efc4c38c491bba7b38b097dc8104.mp3': '泫雅-빨개요'
+    },
+    {
+      'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': 'Mr Sanka - Midnight Air'
+    },
+    {'http://www.fm.vhuomai.cn/28dcce7bf51e47bba45448cd44d7c20a.mp3': '  HeartBBB,MAKJ,Enschway - Black Beatles & Push Up'},
+    {'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'Owl City - The Saltwater Room'},
+    {
+      'http://www.fm.vhuomai.cn/333dbfbf98684118854778fb044299d7.mp3': '飞儿乐队- 流浪者之歌'
+    },
+    {
+      'http://www.fm.vhuomai.cn/548706842bbe4e72858a76b1c09129cf.mp3': 'Lana Del Rey,Cedric Gervais - Young And Beautiful (Cedric Gervais Mix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Gryﬃn,ILLENIUM,Daya - Feel Good'
+    },
+    {'http://www.fm.vhuomai.cn/d9130a4f187947359a6dfb47e3b0de65.mp3': '莫文蔚- 双城故事'},
+    {'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Martin Garrix,Bebe Rexha - In The Name Of Love'},
+    {
+      'http://www.fm.vhuomai.cn/b306870f8a21447687a1f751736fa5dc.mp3': '陈奕迅- 陪你度过漫长岁月'
+    },
+    {
+      'http://www.fm.vhuomai.cn/1707407d0279423c92c53bbc5dfdfda3.mp3': '海龟先生- 男孩别哭'
+    },
+    {
+      'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': '范逸臣- 无乐不作'
+    },
+    {'http://www.fm.vhuomai.cn/f316efc4c38c491bba7b38b097dc8104.mp3': 'G-Dragon-Today'},
+    {'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': '梅林茂- 開幕百鬼綺譚'},
+    {
+      'http://www.fm.vhuomai.cn/b306870f8a21447687a1f751736fa5dc.mp3': '陈奕迅- 单车'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'Jibbs - Chain Hang Low'
+    },
+    {
+      'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Afrojack,Ty Dolla $ign - Gone'
+    },
+    {'http://www.fm.vhuomai.cn/d07d51dcc87a4ec5b67e07077c2ecdc1.mp3': '搜索赵雷北美巡演'},
+    {'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': '胡夏- 美好的昨天'},
+    {
+      'http://www.fm.vhuomai.cn/a5b67f836943485b97d14fa5c8f85d7d.mp3': '李健- 抚仙湖'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------7--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------1--------'
+    },
+    {'http://www.fm.vhuomai.cn/d0d1d176b76646d0a297877a89ba1e8e.mp3': 'Jack Wins - Shape Of You (Jack Wins Radio Edit)'},
+    {'http://www.fm.vhuomai.cn/359dabf57ed04f1ca42587e76e262e6e.mp3': '薛之谦- 认真的雪'},
+    {
+      'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'Owl City, Breanna Durun - Honey & The Bee'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'llusionize,VINNE - Bring it Back'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': '사랑과영혼- 酷龙,김태영'
+    },
+    {'http://www.fm.vhuomai.cn/28dcce7bf51e47bba45448cd44d7c20a.mp3': ' Maﬁa House - Escape (Swedish Levels remix)'},
+    {'http://www.fm.vhuomai.cn/e8d1b2319e8d4a28abda2bbe8c89ffd6.mp3': ' M83 - Midnight City'},
+    {
+      'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'Borgeous - Invincible (Original Mix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': 'Rihanna,Calvin Harris - We Found Love'
+    },
+    {
+      'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'Josh Bernstein,Headhunterz,Crystal Lake - Live Your Life (JOSH BERNSTEIN REMIX)'
+    },
+    {'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'The Pussycat Dolls, Timberland - Wait A Minute'},
+    {'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': '阿肆- 预谋邂逅'},
+    {
+      'http://www.fm.vhuomai.cn/7fb033a19e7643f5b69d04d65342a244.mp3': 'Aimer - Last Stardust'
+    },
+    {
+      'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': '阿杜- 差一点'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'Di Johnston - You’re Too Pretty'
+    },
+    {'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': '无级生- 毕业生随想曲'},
+    {'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------20-24--------'},
+    {
+      'http://www.fm.vhuomai.cn/de0bd9d7b0ea452d90c2d9446e11ec6c.mp3': '张惠妹- 过不去'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------11--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/6356cb9611934b6286a4bde6767dd888.mp3': 'Sia - Helium'
+    },
+    {'http://www.fm.vhuomai.cn/359dabf57ed04f1ca42587e76e262e6e.mp3': '薛之谦- 刚刚好'},
+    {'http://www.fm.vhuomai.cn/d9130a4f187947359a6dfb47e3b0de65.mp3': '李荣浩- 老街'},
+    {
+      'http://www.fm.vhuomai.cn/73620bbf38454d5f8e66a04bf5271c4d.mp3': 'Avril Lavigne - I Dont Give'
+    },
+    {
+      'http://www.fm.vhuomai.cn/cfc1b3ba82ee4a5cb3397089edbc4989.mp3': '孙子涵- 不该再是旧的'
+    },
+    {
+      'http://www.fm.vhuomai.cn/333dbfbf98684118854778fb044299d7.mp3': '陈绮贞- 旅行的意义'
+    },
+    {'http://www.fm.vhuomai.cn/d0d1d176b76646d0a297877a89ba1e8e.mp3': ' Lucas & Steve,Jake Reese - Calling On You'},
+    {'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': '曲婉婷- Drenched'},
+    {
+      'http://www.fm.vhuomai.cn/eed028e13ef74061972763e3aa12753e.mp3': 'McFly - Just My Luck'
+    },
+    {
+      'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': 'Maroon 5 - Sugar'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b306870f8a21447687a1f751736fa5dc.mp3': '林宥嘉- 背影'
+    },
+    {'http://www.fm.vhuomai.cn/a5b67f836943485b97d14fa5c8f85d7d.mp3': '杨千嬅- 小城大事'},
+    {'http://www.fm.vhuomai.cn/1707407d0279423c92c53bbc5dfdfda3.mp3': '李琦- 城市'},
+    {
+      'http://www.fm.vhuomai.cn/b645beb39dee451fa83c5bb3528a473d.mp3': '金志文- 我们结婚吧'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b645beb39dee451fa83c5bb3528a473d.mp3': 'John Legend - All of Me'
+    },
+    {
+      'http://www.fm.vhuomai.cn/1cd0ed2322154ccaaca9b13a2512cb0f.mp3': 'AGA - 孤雏'
+    },
+    {'http://www.fm.vhuomai.cn/3995eb254d164d7998d5498fbc9eb8cf.mp3': 'Rie Fu - I Wanna Go To A Place'},
+    {'http://www.fm.vhuomai.cn/1cd0ed2322154ccaaca9b13a2512cb0f.mp3': '校长- 带你去旅行'},
+    {
+      'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'Norah Jones - Seven years'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': 'Shakira - Try Everything'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b4a7e2b2a52f4d0cb038d662aaa59ab0.mp3': 'SRNO，Lexy Panterra - Bloodshot'
+    },
+    {'http://www.fm.vhuomai.cn/8de3ef39a9e44e15bcfb7996839e2e7d.mp3': '蔡依林- 我'},
+    {'http://www.fm.vhuomai.cn/6356cb9611934b6286a4bde6767dd888.mp3': 'Alex Parks - Maybe Thats What It Takes'},
+    {
+      'http://www.fm.vhuomai.cn/4b8186e5286047788f8e603b1fb7b906.mp3': 'Aimee - Release my soul'
+    },
+    {
+      'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': '梁咏琪- 胆小鬼'
+    },
+    {
+      'http://www.fm.vhuomai.cn/5c6a7415b0654446b1339f34c6f6d4f0.mp3': 'GALI - illusion Freestyle'
+    },
+    {'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': 'Fort Minor,Styles of Beyond - Remember The Name'},
+    {'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': '牛奶咖啡- 忘了咖啡'},
+    {
+      'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': '谢霆锋- 穿越火线'
+    },
+    {
+      'http://www.fm.vhuomai.cn/333dbfbf98684118854778fb044299d7.mp3': '朴树- 旅途'
+    },
+    {
+      'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'Carta - Shanghai'
+    },
+    {'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'Hailee Steinfeld,Zedd,Grey - Starving (KIIDA Remix)'},
+    {'http://www.fm.vhuomai.cn/5c6a7415b0654446b1339f34c6f6d4f0.mp3': 'PG One - 举世无双'},
+    {
+      'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': '张靓颖- 只是没有如果'
+    },
+    {
+      'http://www.fm.vhuomai.cn/1707407d0279423c92c53bbc5dfdfda3.mp3': '郭旭- 狗先生'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'TYMA,Madilyn Bailey - Wake Me Up (TYMA Remix)'
+    },
+    {'http://www.fm.vhuomai.cn/5c6a7415b0654446b1339f34c6f6d4f0.mp3': 'GAI爷- 天干物燥'},
+    {'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': '바람의너를(风一样的勇士) (Korean Ver.) - 루시에나(Lu Sienna)'},
+    {
+      'http://www.fm.vhuomai.cn/1707407d0279423c92c53bbc5dfdfda3.mp3': 'Troye Sivan - Youth'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Digital Farm Animals,Yasmin - Didnt Know'
+    },
+    {
+      'http://www.fm.vhuomai.cn/73620bbf38454d5f8e66a04bf5271c4d.mp3': 'Taylor Swift - Dear John'
+    },
+    {'http://www.fm.vhuomai.cn/6356cb9611934b6286a4bde6767dd888.mp3': 'Americano - 어느날문득그대생각이났어요'},
+    {'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Afrojack,Mike Taylor - SummerThing! (feat. Mike Taylor)'},
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------5--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 祝星'
+    },
+    {
+      'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': 'Hardwell,PBH,Jack Shizzle - Creatures Of The Night (PBH & Jack Shizzle Remix）'
+    },
+    {'http://www.fm.vhuomai.cn/3995eb254d164d7998d5498fbc9eb8cf.mp3': 'TM Network - Beyond the time'},
+    {'http://www.fm.vhuomai.cn/333dbfbf98684118854778fb044299d7.mp3': '毛不易- 一程山路'},
+    {
+      'http://www.fm.vhuomai.cn/39edf7e6d97a48c484397ce8b7d5e26d.mp3': 'DJ Okawari - Luv Letter'
+    },
+    {
+      'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': 'The Veronicas - In My Blood ( LEAF Remix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/de0bd9d7b0ea452d90c2d9446e11ec6c.mp3': 'Gnash, Olivia O’Brien - i hate u i love u'
+    },
+    {'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Lost Frequencies - Here With You (Extended Mix)'},
+    {'http://www.fm.vhuomai.cn/39edf7e6d97a48c484397ce8b7d5e26d.mp3': '喷嘭乐团- 那了啥地方'},
+    {
+      'http://www.fm.vhuomai.cn/8de3ef39a9e44e15bcfb7996839e2e7d.mp3': '蛋堡- 过程'
+    },
+    {
+      'http://www.fm.vhuomai.cn/81c9d56329ce413588443e7e85c14138.mp3': '南征北战- 我的天空'
+    },
+    {
+      'http://www.fm.vhuomai.cn/013fac96986846028e23755ebb11fcc2.mp3': 'The Chainsmokers - Paris'
+    },
+    {'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': 'Ben Folds -  The Luckiest'},
+    {'http://www.fm.vhuomai.cn/42f88daee2d9419cb2c2531e7f0115c3.mp3': '许巍- 生活不止眼前的苟且'},
+    {
+      'http://www.fm.vhuomai.cn/81c9d56329ce413588443e7e85c14138.mp3': '蛋堡- 少年维持着烦恼'
+    },
+    {
+      'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': '鹏泊- 鲨啦啦'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': 'ナノウ,鹿乃- ハロ／ハワユ'
+    },
+    {'http://www.fm.vhuomai.cn/b645beb39dee451fa83c5bb3528a473d.mp3': '韩安旭- 多幸运'},
+    {'http://www.fm.vhuomai.cn/3995eb254d164d7998d5498fbc9eb8cf.mp3': 'Egoist - All Alone With You'},
+    {
+      'http://www.fm.vhuomai.cn/9afe010055f9440ea5d38a5eaf057ce0.mp3': '董贞- 情醉'
+    },
+    {
+      'http://www.fm.vhuomai.cn/6356cb9611934b6286a4bde6767dd888.mp3': '周柏豪- 最好不过'
+    },
+    {
+      'http://www.fm.vhuomai.cn/de0bd9d7b0ea452d90c2d9446e11ec6c.mp3': '愚青- 过境'
+    },
+    {'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Zedd,Aloe Blacc - Candyman'},
+    {'http://www.fm.vhuomai.cn/548706842bbe4e72858a76b1c09129cf.mp3': 'Vicetone - Lowdown (Original Mix)'},
+    {
+      'http://www.fm.vhuomai.cn/eed028e13ef74061972763e3aa12753e.mp3': '邓福如- 未填词'
+    },
+    {
+      'http://www.fm.vhuomai.cn/2c1d900a95c843e5bb16c5cec0f89b6f.mp3': 'Juwita Suwito - Part of a Fool'
+    },
+    {
+      'http://www.fm.vhuomai.cn/06abf494a46545808546d004fc1d097b.mp3': 'Augustana - Alive'
+    },
+    {'http://www.fm.vhuomai.cn/1cd0ed2322154ccaaca9b13a2512cb0f.mp3': '金志文, 徐佳莹- 远走高飞'},
+    {'http://www.fm.vhuomai.cn/42f88daee2d9419cb2c2531e7f0115c3.mp3': '赵雷- 少年锦时'},
+    {
+      'http://www.fm.vhuomai.cn/cfc1b3ba82ee4a5cb3397089edbc4989.mp3': '李荣浩- 老伴'
+    },
+    {
+      'http://www.fm.vhuomai.cn/28dcce7bf51e47bba45448cd44d7c20a.mp3': ' Calvin Harris - Outside ft. Ellie Goulding (Savagez Remix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/73620bbf38454d5f8e66a04bf5271c4d.mp3': '范玮琪- 与爱为邻'
+    },
+    {'http://www.fm.vhuomai.cn/333dbfbf98684118854778fb044299d7.mp3': '李荣浩- 行走的力量'},
+    {'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------8--------'},
+    {
+      'http://www.fm.vhuomai.cn/cfc1b3ba82ee4a5cb3397089edbc4989.mp3': '周传雄- 黄昏'
+    },
+    {
+      'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': 'V.A - I’ll be your home'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Sam Feldt,Deepend,Teemu - Runaways (M-22 Remix)'
+    },
+    {'http://www.fm.vhuomai.cn/0a9ab79f21054235a3d4169ff3ce597c.mp3': '何炅 - 栀子花开'},
+    {'http://www.fm.vhuomai.cn/548706842bbe4e72858a76b1c09129cf.mp3': ' BL3R - Beast Mode (Original Mix)'},
+    {
+      'http://www.fm.vhuomai.cn/d0d1d176b76646d0a297877a89ba1e8e.mp3': 'Boehm,Vicetone - Bright Side (Boehm Remix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/39edf7e6d97a48c484397ce8b7d5e26d.mp3': '戴荃- 悟空'
+    },
+    {
+      'http://www.fm.vhuomai.cn/6356cb9611934b6286a4bde6767dd888.mp3': 'Acidman - 赤橙'
+    },
+    {'http://www.fm.vhuomai.cn/cfc1b3ba82ee4a5cb3397089edbc4989.mp3': ' 韩安旭- 不在'},
+    {'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'The Wynners - 4:55'},
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 奇妙能力歌'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------2--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': 'Hampton the Hampster - The Hampster Dance Song'
+    },
+    {'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': '阿雅- 锉冰进行曲'},
+    {'http://www.fm.vhuomai.cn/5c6a7415b0654446b1339f34c6f6d4f0.mp3': '蛋堡-  Hit the Rhyme'},
+    {
+      'http://www.fm.vhuomai.cn/9afe010055f9440ea5d38a5eaf057ce0.mp3': '戴荃- 悟空'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------10--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'EDX - High On You'
+    },
+    {'http://www.fm.vhuomai.cn/23c7f067ab4547b5b844fba64627bc09.mp3': 'Zara Larsson,R3hab - Aint My Fault (R3hab Remix)'},
+    {'http://www.fm.vhuomai.cn/303c627b2b9f4bca960ca47b0ef05d7c.mp3': 'Alesso, One Republic - If I Lose Myself'},
+    {
+      'http://www.fm.vhuomai.cn/8de3ef39a9e44e15bcfb7996839e2e7d.mp3': 'MC法老,冷风- 我说了算'
+    },
+    {
+      'http://www.fm.vhuomai.cn/7fb033a19e7643f5b69d04d65342a244.mp3': 'Aimee - Release my soul'
+    },
+    {
+      'http://www.fm.vhuomai.cn/359dabf57ed04f1ca42587e76e262e6e.mp3': '薛之谦- 绅士'
+    },
+    {'http://www.fm.vhuomai.cn/d0d1d176b76646d0a297877a89ba1e8e.mp3': 'Zedd,Alessia Cara,Jonas Blue - Stay (Jonas Blue Remix)'},
+    {'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '南征北战NZBZ - 我的天空'},
+    {
+      'http://www.fm.vhuomai.cn/81c9d56329ce413588443e7e85c14138.mp3': '陈鸿宇- 一如年少模样'
+    },
+    {
+      'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': 'Daft Punk, Pharrell Williams - Get Lucky'
+    },
+    {
+      'http://www.fm.vhuomai.cn/6356cb9611934b6286a4bde6767dd888.mp3': '李昇基- 되돌리다'
+    },
+    {'http://www.fm.vhuomai.cn/b645beb39dee451fa83c5bb3528a473d.mp3': '张靓颖- All of Me (Live)'},
+    {'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': '金娃娃- 彩虹糖的梦'},
+    {
+      'http://www.fm.vhuomai.cn/f316efc4c38c491bba7b38b097dc8104.mp3': '陈柏宇- 永久保存'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'EDX - Feel The Rush'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': 'Imagine Dragons - Demons'
+    },
+    {'http://www.fm.vhuomai.cn/73620bbf38454d5f8e66a04bf5271c4d.mp3': '30 Seconds to Mars - This Is War'},
+    {'http://www.fm.vhuomai.cn/f316efc4c38c491bba7b38b097dc8104.mp3': '张智霖- 岁月如歌'},
+    {
+      'http://www.fm.vhuomai.cn/d9130a4f187947359a6dfb47e3b0de65.mp3': '李健- 心升明月'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'The Weeknd - Secrets'
+    },
+    {
+      'http://www.fm.vhuomai.cn/bcc0eb0769544a969e2fb90546303b2e.mp3': 'Blasterjaxx - Maleﬁc'
+    },
+    {'http://www.fm.vhuomai.cn/8de3ef39a9e44e15bcfb7996839e2e7d.mp3': '南征北站- 不愿回头'},
+    {'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'R3hab,Khalid,Alina Baraz - Electric(R3hab Remix)'},
+    {
+      'http://www.fm.vhuomai.cn/dbaa203b8a5c4817abb42ee6e78168b3.mp3': '--------0.5--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/42f88daee2d9419cb2c2531e7f0115c3.mp3': '赵雷- 我们的时光'
+    },
+    {
+      'http://www.fm.vhuomai.cn/fa6655a2534340088281f3b794c6bfa8.mp3': '--------12-20--------'
+    },
+    {'http://www.fm.vhuomai.cn/f88da8776e4c4a5986227ce1dfe445b5.mp3': 'Audien - Message'},
+    {'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': 'LeaderS - 바래_1'},
+    {
+      'http://www.fm.vhuomai.cn/eed028e13ef74061972763e3aa12753e.mp3': '五月天-噢买尬'
+    },
+    {
+      'http://www.fm.vhuomai.cn/9afe010055f9440ea5d38a5eaf057ce0.mp3': '张靓颖- 思美人'
+    },
+    {
+      'http://www.fm.vhuomai.cn/b4a7e2b2a52f4d0cb038d662aaa59ab0.mp3': '薛之谦- 演员'
+    },
+    {'http://www.fm.vhuomai.cn/eed028e13ef74061972763e3aa12753e.mp3': 'Augustana - Maybe'},
+    {'http://www.fm.vhuomai.cn/b645beb39dee451fa83c5bb3528a473d.mp3': '田馥甄- 小幸运'},
+    {
+      'http://www.fm.vhuomai.cn/81c9d56329ce413588443e7e85c14138.mp3': '许巍- 少年'
+    },
+    {
+      'http://www.fm.vhuomai.cn/9afe010055f9440ea5d38a5eaf057ce0.mp3': '徐佳莹- 身骑白马'
+    },
+    {
+      'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': 'The Rembrandts - Ill Be There For You'
+    },
+    {'http://www.fm.vhuomai.cn/dbaa203b8a5c4817abb42ee6e78168b3.mp3': '--------2--------'},
+    {'http://www.fm.vhuomai.cn/0dda4b06787a46e49fb2eacf6c15db5e.mp3': '살두와마흥이- 떡볶이와파스타'},
+    {
+      'http://www.fm.vhuomai.cn/cfc1b3ba82ee4a5cb3397089edbc4989.mp3': '毛不易- 消愁'
+    },
+    {
+      'http://www.fm.vhuomai.cn/ba101d6746d149ccaed403bbc2c1743e.mp3': 'Malaa,The Weeknd - Cant Feel My Face'
+    },
+    {
+      'http://www.fm.vhuomai.cn/d9130a4f187947359a6dfb47e3b0de65.mp3': '赵雷- 成都'
+    },
+    {'http://www.fm.vhuomai.cn/b1ad7b3de99c4b1c979427d35a0b40aa.mp3': '陈粒- 虚拟'},
+    {'http://www.fm.vhuomai.cn/8de3ef39a9e44e15bcfb7996839e2e7d.mp3': 'Jill Scott - Golden'},
+    {
+      'http://www.fm.vhuomai.cn/359dabf57ed04f1ca42587e76e262e6e.mp3': '薛之谦- 深深爱过你'
+    },
+    {
+      'http://www.fm.vhuomai.cn/303c627b2b9f4bca960ca47b0ef05d7c.mp3': '牛奶咖啡- 越长大越孤单'
+    },
+    {
+      'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': 'Dragon Pig, CNBALLER, Cloud Wang - 全部都是你'
+    },
+    {'http://www.fm.vhuomai.cn/39edf7e6d97a48c484397ce8b7d5e26d.mp3': '朴树- 平凡之路'},
+    {'http://www.fm.vhuomai.cn/548706842bbe4e72858a76b1c09129cf.mp3': 'Hardwell - Colors (feat. Andreas Moe)'},
+    {
+      'http://www.fm.vhuomai.cn/a5b67f836943485b97d14fa5c8f85d7d.mp3': '魏如萱- 香格里拉'
+    },
+    {
+      'http://www.fm.vhuomai.cn/eed028e13ef74061972763e3aa12753e.mp3': 'Mika - Origin of Love'
+    },
+    {
+      'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': 'StarGate,SeeB,P!nk - Waterfall (Seeb Remix)'
+    },
+    {'http://www.fm.vhuomai.cn/9afe010055f9440ea5d38a5eaf057ce0.mp3': '郁可唯- 思慕'},
+    {'http://www.fm.vhuomai.cn/dbaa203b8a5c4817abb42ee6e78168b3.mp3': '--------2.5--------'},
+    {
+      'http://www.fm.vhuomai.cn/dbaa203b8a5c4817abb42ee6e78168b3.mp3': '--------1.5--------'
+    },
+    {
+      'http://www.fm.vhuomai.cn/303c627b2b9f4bca960ca47b0ef05d7c.mp3': 'Hammock Dreams'
+    },
+    {
+      'http://www.fm.vhuomai.cn/5df11106dacd4e09bfe20064338c5d42.mp3': '黄龄- 骑士'
+    },
+    {'http://www.fm.vhuomai.cn/46494d81ce064738a782438342c62b89.mp3': ' The Chainsmokers,Coldplay - Something Just Like This'},
+    {'http://www.fm.vhuomai.cn/d38ac06e2fa44839aebe330890741d52.mp3': '王心凌- Hi Hi Bye Bye'},
+    {
+      'http://www.fm.vhuomai.cn/d9130a4f187947359a6dfb47e3b0de65.mp3': 'Michael  Bible - Home'
+    },
+    {
+      'http://www.fm.vhuomai.cn/548706842bbe4e72858a76b1c09129cf.mp3': 'NERVO,Harrison Miya,Audiorockers - Bulletproof (AudiorockersRemix)'
+    },
+    {
+      'http://www.fm.vhuomai.cn/3995eb254d164d7998d5498fbc9eb8cf.mp3': 'Mr. Children - Hanabi'
+    },
+    {'http://www.fm.vhuomai.cn/fcb3ab44dab542f085ad7cab5e4b0f11.mp3': 'Hugo - 99 Problems'},
+    {'http://www.fm.vhuomai.cn/3995eb254d164d7998d5498fbc9eb8cf.mp3': 'mpi - Perfect Time'},
+    {
+      'http://www.fm.vhuomai.cn/28dcce7bf51e47bba45448cd44d7c20a.mp3': ' TCHAMI - Shot Caller}'
+    },
+    {
+      'http://www.fm.vhuomai.cn/9afe010055f9440ea5d38a5eaf057ce0.mp3': '孙子涵- 唐人'
+    }];
+  let audio = document.querySelector('audio');
+  let name = document.querySelector('h2');
+  
+  function loadList() {
+    let container = document.createElement('div');
+    data.map((item) => {
+      let itemContainer = document.createElement('p');
+      itemContainer.className = 'item-name';
+      itemContainer.textContent = Object.values(item)[0];
+      container.appendChild(itemContainer);
+    });
+    document.body.appendChild(container);
+  }
+  loadList();
+  function getRandomMusic() {
+    let random = Math.floor(Math.random() * data.length);
+    let music = data[random];
+    for (let i in music) {
+      name.textContent = music[i];
+      audio.setAttribute('src', i);
+    }
+  }
+  getRandomMusic();
+  // 选歌功能
+  let names = document.getElementsByClassName('item-name');
+  let len = names.length;
+  for (let i = 0; i < len; i ++) {
+    names[i].index = i;
+    names[i].onclick = () => {
+      let text = names[i].innerHTML;
+      data.map(item => {
+        let key = Object.keys(item)[0];
+        let value = Object.values(item)[0];
+        if (value === text) {
+          audio.setAttribute('src', key);
+          name.innerHTML = value;
+        }
+      })
+    }
+  }
+</script>
+<script src="../../js/snow.js"></script>
+</html>
